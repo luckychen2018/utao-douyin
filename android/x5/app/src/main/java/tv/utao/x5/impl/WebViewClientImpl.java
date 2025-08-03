@@ -3,11 +3,11 @@ package tv.utao.x5.impl;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
-import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
-import com.tencent.smtt.sdk.ValueCallback;
-import com.tencent.smtt.sdk.WebView;
-import com.tencent.smtt.sdk.WebViewClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.ValueCallback;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -24,32 +24,30 @@ import tv.utao.x5.util.LogUtil;
 import tv.utao.x5.util.TplUtil;
 import tv.utao.x5.util.Util;
 
-public class WebViewClientImpl extends WebViewClient {
+public class WebViewClientImpl extends android.webkit.WebViewClient {
     private  static  String TAG="WebViewClient";
     private Context context;
-    private WebView mWebView;
 
     private static  String lastUrl=null;
     private static  String rootUrl=null;
     private static  String currentUrl=null;
-    private int type;
-    public WebViewClientImpl(Context context,WebView mWebView,int type){
+    private int type=0; // 默认类型
+    public WebViewClientImpl(Context context){
         this.context=context;
-        this.mWebView=mWebView;
-        this.type=type;
     }
-    @Override
+    // 原生WebView没有此方法，注释掉
+    /*@Override
     public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
         LogUtil.i(TAG,"onRenderProcessGone");
         view.clearCache(false);
         view.clearHistory();
         return true;
-    }
+    }*/
 
     @Override
-    public void onReceivedSslError(com.tencent.smtt.sdk.WebView webView,
-                                   com.tencent.smtt.export.external.interfaces.SslErrorHandler handler,
-                                   com.tencent.smtt.export.external.interfaces.SslError error) {
+    public void onReceivedSslError(WebView webView,
+                                   android.webkit.SslErrorHandler handler,
+                                   android.net.http.SslError error) {
         LogUtil.i(TAG,"onReceivedSslError");
         handler.proceed(); // 忽略 SSL 错误
     }
@@ -93,7 +91,7 @@ public class WebViewClientImpl extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         LogUtil.i(TAG, "onPageFinished, view:" + view + ", url:" + url);
-        if (mWebView.getProgress() == 100) {
+        if (view.getProgress() == 100) {
             LogUtil.i(TAG, "onPageFinished XX, url:" + url);
             String fileContent =getFileContent(url);
             if(null==fileContent){
@@ -165,7 +163,7 @@ public class WebViewClientImpl extends WebViewClient {
                 return resp;
             }
         }
-        if(null!=accept&&accept.startsWith("image/")&&!imageLoad(url)){
+        if(null!=accept&&accept.startsWith("image/")&&!imageLoad(url, webView)){
             return new WebResourceResponse(null,
                     null, null);
         }
@@ -258,7 +256,7 @@ public class WebViewClientImpl extends WebViewClient {
        }
       return  false;
    }
-    private boolean  imageLoad(String url){
+    private boolean  imageLoad(String url, WebView webView){
         if(url.contains("tvImg")){
             return true;
         }
@@ -271,21 +269,21 @@ public class WebViewClientImpl extends WebViewClient {
         if(url.contains("open.weixin.qq.com/connect/qrcode")){
             String code=Util.loginQr(url,"微信");
             LogUtil.i(TAG, "imageLoad: "+code);
-            Util.evalOnUi(mWebView, code);
+            Util.evalOnUi(webView, code);
             return true;
         }
         //ssl.ptlogin2.qq.com/ptqrshow
         if(url.contains("ptlogin2.qq.com/ssl/ptqrshow")){
             String code=Util.loginQr(url,"手机端qq");
             LogUtil.i(TAG, "imageLoad: "+code);
-            Util.evalOnUi(mWebView, code);
+            Util.evalOnUi(webView, code);
             return true;
         }
         if(url.startsWith("https://img.alicdn.com/imgextra/")&&url.endsWith("xcode.png")){
             String code=Util.loginQr(url,"youkuQr");
                     //Util.sessionStorageWithTime("youkuQr",url);
             LogUtil.i(TAG, "imageLoad: "+code);
-            Util.evalOnUi(mWebView, code);
+            Util.evalOnUi(webView, code);
             return true;
         }
         return false;

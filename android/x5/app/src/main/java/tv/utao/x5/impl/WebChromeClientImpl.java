@@ -2,18 +2,17 @@ package tv.utao.x5.impl;
 
 import android.view.View;
 
-import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
-import com.tencent.smtt.export.external.interfaces.JsPromptResult;
-import com.tencent.smtt.export.external.interfaces.JsResult;
-import com.tencent.smtt.export.external.interfaces.PermissionRequest;
-import com.tencent.smtt.sdk.WebChromeClient;
-import com.tencent.smtt.sdk.WebView;
+import android.webkit.JsPromptResult;
+import android.webkit.JsResult;
+import android.webkit.PermissionRequest;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 
 import java.util.Arrays;
 
 import tv.utao.x5.util.LogUtil;
 
-public class WebChromeClientImpl extends WebChromeClient {
+public class WebChromeClientImpl extends android.webkit.WebChromeClient {
     private static String TAG="WebChromeClient";
     /**
      * 具体接口使用细节请参考文档：
@@ -84,7 +83,7 @@ public class WebChromeClientImpl extends WebChromeClient {
             //request.grant(request.getResources());
     }
     @Override
-    public void onShowCustomView(View view, IX5WebChromeClient.CustomViewCallback callback) {
+    public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
         LogUtil.i(TAG,"onShowCustomView ");
     }
 }

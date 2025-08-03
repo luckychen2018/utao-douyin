@@ -66,10 +66,7 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
-            android:label="dexopt"
-            android:process=":dexopt"></service>
+        <!-- X5内核相关服务已移除 -->
 
         <provider
             android:name="androidx.core.content.FileProvider"

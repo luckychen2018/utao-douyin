@@ -8,6 +8,15 @@ ext{
     room_version = "2.6.1"
 }
 android {
+    signingConfigs {
+        release {
+            // 使用新创建的签名文件
+            storeFile file('../../../utao.jks')
+            storePassword '123456'
+            keyAlias 'utao'
+            keyPassword '123456'
+        }
+    }
    /* flavorDimensions= ["env"]
     productFlavors {
         dev {
@@ -59,20 +68,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
+            shrinkResources false
             buildConfigField('String', 'BUILD_ENV_TYPE', '"pro"')
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     android.applicationVariants.all {
         variant ->
             variant.outputs.all {
                 // 此处指定生成的apk文件名
                 outputFileName = "utao.apk"
+            }
+
+            // 打印APK输出路径
+            variant.assembleProvider.get().doLast {
+                println "APK文件已生成: ${variant.outputs.first().outputFile.absolutePath}"
             }
     }
 }

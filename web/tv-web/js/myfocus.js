@@ -83,19 +83,31 @@ let TvFocus={
         return true;
     },
     up(){
-        let video= _tvFunc.getVideo();
-        let currentVolume=_tvFunc.getVideo().volume;
-        if(currentVolume<1){if((currentVolume+0.2)>1){video.volume=1}else{video.volume+=0.2}}
-        let name= Math.floor(video.volume*100);
-        _layer.notifyLess("音量"+name);
+        if(_isVideo){
+            let video= _tvFunc.getVideo();
+            let currentVolume=_tvFunc.getVideo().volume;
+            if(currentVolume<1){if((currentVolume+0.2)>1){video.volume=1}else{video.volume+=0.2}}
+            let name= Math.floor(video.volume*100);
+            _layer.notifyLess("音量"+name);
+        }else{
+            // 非视频状态下，向上滚动页面
+            window.scrollBy(0, -300);
+            _layer.notifyLess("向上滚动");
+        }
         return true;
     },
     down(){
-        let video= _tvFunc.getVideo();
-        let currentVolume=_tvFunc.getVideo().volume;
-        if(currentVolume>0){if((currentVolume-0.2)<0){video.volume=0}else{video.volume-=0.2;}}
-        let name= Math.floor(video.volume*100);
-        _layer.notifyLess("音量"+name);
+        if(_isVideo){
+            let video= _tvFunc.getVideo();
+            let currentVolume=_tvFunc.getVideo().volume;
+            if(currentVolume>0){if((currentVolume-0.2)<0){video.volume=0}else{video.volume-=0.2;}}
+            let name= Math.floor(video.volume*100);
+            _layer.notifyLess("音量"+name);
+        }else{
+            // 非视频状态下，向下滚动页面
+            window.scrollBy(0, 300);
+            _layer.notifyLess("向下滚动");
+        }
         return true;
     },
     keyDownEvent(){

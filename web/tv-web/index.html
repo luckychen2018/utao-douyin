@@ -7,7 +7,18 @@
     <title>油桃投屏</title>
     <link href="css/rset.css?v=x" rel="stylesheet">
     <link href="css/my.css?v=x" rel="stylesheet">
-    <script src="js/zepto.min.js?v=x"></script>
+    <script>
+// 全局定义browser对象以避免错误
+var browser = browser || {};
+browser.runtime = browser.runtime || {};
+browser.runtime.connect = function() {
+  return {
+    postMessage: function() {},
+    onMessage: { addListener: function() {} }
+  };
+};
+</script>
+<script src="js/zepto.min.js?v=x"></script>
     <script src="js/base.js?v=x"></script>
     <script src="js/common.js?v=x"></script>
     <script src="js/vuex.min.js"></script>

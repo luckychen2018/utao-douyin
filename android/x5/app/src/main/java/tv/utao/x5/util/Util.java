@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
-import com.tencent.smtt.sdk.ValueCallback;
-import com.tencent.smtt.sdk.WebView;
+import android.webkit.ValueCallback;
+import android.webkit.WebView;
 
 import java.io.File;
 import java.text.MessageFormat;

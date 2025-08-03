@@ -6,6 +6,15 @@ let _browser={
       return browser.runtime.getURL(src);
    }
 };
+/*浏览器扩展相关*/
+function openX5Browser(){
+    return _apiX.msgToObj("openX5Browser");
+}
+function openBrowser(url){
+    if(url){
+        _apiX.msg("openBrowser",url);
+    }
+}
 const _tvLoadRes={
     js(scrJs){
         let script = document.createElement('script');
@@ -165,6 +174,16 @@ if(typeof cloneInto!=="undefined"){
     });
    // window.wrappedJSObject._tvEnv = cloneInto(_tvEnv, window);
 }
+
+// 模拟browser对象以避免错误
+var browser = browser || {};
+browser.runtime = browser.runtime || {};
+browser.runtime.connect = function() {
+  return {
+    postMessage: function() {},
+    onMessage: { addListener: function() {} }
+  };
+};
 
 var myPort = browser.runtime.connect({ name: "port-from-cs" });
 myPort.postMessage({service:"test",data: "hello from content script" });

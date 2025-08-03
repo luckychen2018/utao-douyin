@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抖音遥控</title>
+    <link href="css/rset.css?v=x" rel="stylesheet">
+    <link href="css/my.css?v=x" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>抖音遥控</h1>
+        <p>点击按钮打开抖音官网，上下键可控制页面滚动</p>
+        <button class="btn" id="openDouyin">打开抖音官网</button>
+    </div>
+
+    <script src="js/zepto.min.js?v=x"></script>
+    <script>
+        // 打开抖音官网
+        document.getElementById('openDouyin').addEventListener('click', function() {
+            window.open('https://www.douyin.com/?recommend=1', '_self');
+        });
+
+        // 页面加载完成后自动打开抖音官网
+        window.onload = function() {
+            // 延迟1秒后自动点击按钮
+            setTimeout(function() {
+                document.getElementById('openDouyin').click();
+            }, 1000);
+        };
+
+        // 监听键盘事件 - 此部分在抖音页面加载后可能无法工作，因为浏览器安全策略限制
+        document.addEventListener('keydown', function(event) {
+            const scrollAmount = 300; // 每次滚动的距离
+
+            // 处理上下键
+            if (event.keyCode === 38) { // 上键
+                event.preventDefault();
+                window.scrollBy(0, -scrollAmount);
+                console.log('向上滚动');
+            } else if (event.keyCode === 40) { // 下键
+                event.preventDefault();
+                window.scrollBy(0, scrollAmount);
+                console.log('向下滚动');
+            }
+        });
+    </script>
+</body>
+</html>
