@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抖音全屏视频</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+        #douyinFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="douyinFrame" src="https://www.douyin.com/?recommend=1"></iframe>
+    <button class="fullscreen-btn" id="toggleFullscreen">全屏</button>
+
+    <script>
+        // 等待页面加载完成
+        window.onload = function() {
+            // 延迟3秒后进入全屏，确保抖音页面已加载完成
+            setTimeout(enterFullscreen, 3000);
+        };
+
+        // 进入全屏模式
+        function enterFullscreen() {
+            const docEl = document.documentElement;
+            if (docEl.requestFullscreen) {
+                docEl.requestFullscreen();
+            } else if (docEl.mozRequestFullScreen) { // Firefox
+                docEl.mozRequestFullScreen();
+            } else if (docEl.webkitRequestFullscreen) { // Chrome, Safari
+                docEl.webkitRequestFullscreen();
+            } else if (docEl.msRequestFullscreen) { // IE/Edge
+                docEl.msRequestFullscreen();
+            }
+        }
+
+        // 全屏按钮点击事件
+        document.getElementById('toggleFullscreen').addEventListener('click', function() {
+            if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                enterFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        });
+
+        // 监听键盘事件，处理上下键滚动
+        document.addEventListener('keydown', function(event) {
+            // 获取iframe元素
+            const iframe = document.getElementById('douyinFrame');
+            const scrollAmount = 300; // 每次滚动的距离
+
+            // 处理上下键
+            if (event.keyCode === 38) { // 上键
+                event.preventDefault();
+                // 尝试在iframe中执行滚动操作
+                try {
+                    iframe.contentWindow.scrollBy(0, -scrollAmount);
+                    console.log('向上滚动');
+                } catch (e) {
+                    console.error('无法滚动iframe内容:', e);
+                }
+            } else if (event.keyCode === 40) { // 下键
+                event.preventDefault();
+                // 尝试在iframe中执行滚动操作
+                try {
+                    iframe.contentWindow.scrollBy(0, scrollAmount);
+                    console.log('向下滚动');
+                } catch (e) {
+                    console.error('无法滚动iframe内容:', e);
+                }
+            } else if (event.keyCode === 13) { // 回车键(OK键)
+                event.preventDefault();
+                document.getElementById('toggleFullscreen').click();
+            }
+        });
+    </script>
+</body>
+</html>
