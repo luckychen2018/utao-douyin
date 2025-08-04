@@ -50,7 +50,13 @@ function setupVideo(video) {
 
     });
     let viewport = document.getElementById("viewport");
+<<<<<<< HEAD
     viewport.content = "width=device-width, initial-scale=1";
+=======
+    if(viewport){
+        viewport.content = "width=device-width, initial-scale=1";
+    }
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
   /*  _tvFunc.videoReady(function (video){
         //let elem= $$("video").prop("outerHTML");
         //$$("body").html(elem);

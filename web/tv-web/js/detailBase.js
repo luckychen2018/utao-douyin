@@ -179,6 +179,13 @@
                         if(timeAll>3600){
                             num=40;
                         }
+<<<<<<< HEAD
+=======
+                        if(timeAll>60*60*10){
+                            timeAll=60*60;
+                            num=40;
+                        }
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
                         let splitTime =  timeAll/num;
                         let splits=[];
                         let currentTime=splitTime;

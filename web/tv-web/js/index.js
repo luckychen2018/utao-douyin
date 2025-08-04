@@ -49,6 +49,14 @@ const _html={
     },
     initApp(){
         console.log("initAppinitApp")
+<<<<<<< HEAD
+=======
+        if (typeof PetiteVue === 'undefined') {
+           // _api.message("activity","live");
+            _api.toast("内置浏览器内核过低或开启x5内核失败 可官网utao.tv下载火狐版");
+            return;
+        }
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         PetiteVue.createApp({
             channels:[],
             apps:[],
@@ -174,9 +182,19 @@ const _html={
                     return;
                 }
                 if(dataUrl==="tv.html"&& _tvFunc.isApp()){
+<<<<<<< HEAD
                         _apiX.msg("activity","live");
                         return;
                 }
+=======
+                        _apiX.msgStr("activity","live");
+                        return;
+                }
+                if(dataUrl.startsWith("https://www.douyin.com")&& _tvFunc.isApp()){
+                    _apiX.msgStr("activity","douyin");
+                    return;
+                }
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
                 _layer.wait("请耐心等待跳转。。。");
                 window.location.href = dataUrl;
             },
@@ -251,9 +269,17 @@ let _data={
        /* if(!isGecko){
             apps.push({id:0,url:bili,name:"哔哩哔哩",pic:"img/bilibili.png"});
         }*/
+<<<<<<< HEAD
         apps.push({id:0,url:"https://www.douyin.com/?recommend=1",name:"抖音推荐",pic:"img/dy2.jpg"});
         apps.push({id:0,url:"ty.html",name:"体育",pic:"img/utao.jpg"});
         apps.push({id:0,url:"letv.html",name:"乐视",pic:"img/letv.jpg"});
+=======
+        //apps.push({id:0,url:"https://www.douyin.com/?recommend=1",name:"抖音推荐",pic:"img/dy2.jpg"});
+        apps.push({id:0,url:"ty.html",name:"体育",pic:"img/utao.jpg"});
+        apps.push({id:0,url:"letv.html",name:"乐视",pic:"img/letv.jpg"});
+        //https://www.douyin.com/?recommend=1
+        //apps.push({id:0,url:"https://www.douyin.com/?recommend=1",name:"抖音推荐",pic:"img/dy2.jpg"});
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         //apps.push({id:0,url:"douyin.html",name:"抖音推荐",pic:"img/douyin.jpeg"});
         apps.forEach((item,index)=>{
             item.id=index;

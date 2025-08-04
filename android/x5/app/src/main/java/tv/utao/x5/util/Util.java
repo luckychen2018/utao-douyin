@@ -15,8 +15,13 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
+<<<<<<< HEAD
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
+=======
+import com.tencent.smtt.sdk.ValueCallback;
+import com.tencent.smtt.sdk.WebView;
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 
 import java.io.File;
 import java.text.MessageFormat;

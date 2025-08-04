@@ -28,10 +28,19 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.google.gson.reflect.TypeToken;
+<<<<<<< HEAD
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+=======
+import com.tencent.smtt.export.external.extension.interfaces.IX5WebSettingsExtension;
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
+import com.tencent.smtt.export.external.interfaces.PermissionRequest;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -47,6 +56,10 @@ import tv.utao.x5.databinding.ActivityLiveBinding;
 import tv.utao.x5.domain.live.Live;
 import tv.utao.x5.domain.live.Vod;
 import tv.utao.x5.impl.WebViewClientImpl;
+<<<<<<< HEAD
+=======
+import tv.utao.x5.impl.X5WebChromeClientExtension;
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 import tv.utao.x5.service.UpdateService;
 import tv.utao.x5.util.FileUtil;
 import tv.utao.x5.util.HttpUtil;
@@ -57,7 +70,11 @@ import tv.utao.x5.utils.ToastUtils;
 
 public class LiveActivity extends Activity {
     protected String TAG = "LiveActivity";
+<<<<<<< HEAD
     protected android.webkit.WebView lWebView;
+=======
+    protected WebView lWebView;
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
     protected ActivityLiveBinding binding;
     private Context thisContext;
     private static Vod currentLive = null;
@@ -229,7 +246,11 @@ public class LiveActivity extends Activity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_live);
         //binding.setMenuTitleHandler(new BaseWebViewActivity.MenuTitleHandler());
         ViewGroup container = binding.webviewWrapper;
+<<<<<<< HEAD
         lWebView = new android.webkit.WebView(this);
+=======
+        lWebView = new com.tencent.smtt.sdk.WebView(this);
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         container.addView(lWebView, new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
@@ -258,7 +279,11 @@ public class LiveActivity extends Activity {
         webSetting.setMediaPlaybackRequiresUserGesture(false);
         String userAgent=webSetting.getUserAgentString();
         //"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+<<<<<<< HEAD
         webSetting.setUserAgentString("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
+=======
+        webSetting.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         //webSetting.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36");
         //normal?
         webSetting.setCacheMode(WebSettings.LOAD_DEFAULT);
@@ -267,10 +292,27 @@ public class LiveActivity extends Activity {
         //无图
         webSetting.setBlockNetworkImage(true);
         // 在WebView的初始化代码中启用缓存
+<<<<<<< HEAD
         // X5内核特有设置已移除
         // 使用原生WebView的图片设置
         webSetting.setBlockNetworkImage(true); // 无图模式
         lWebView.setWebViewClient(new WebViewClientImpl(getBaseContext()));
+=======
+        IX5WebSettingsExtension webSettingsExtension=  lWebView.getSettingsExtension();
+        if(null!=webSettingsExtension){
+            LogUtil.i(TAG,"isX5 webSettingsExtension");
+            //webSettingsExtension.setDayOrNight(false);
+            //webSettingsExtension.setFitScreen(true);//会乱适配 // webSettingsExtension.setSmartFullScreenEnabled(true);
+            webSettingsExtension.setAcceptCookie(true);
+            webSettingsExtension.setWebViewInBackground(true);
+            webSettingsExtension.setForcePinchScaleEnabled(false);//缩放
+            //webSettingsExtension.setUseQProxy(true);
+            // webSettingsExtension.setHttpDnsDomains(Arrays.asList("dns.alidns.com"));
+            //无图
+             webSettingsExtension.setPicModel(IX5WebSettingsExtension.PicModel_NoPic);
+        }
+        lWebView.setWebViewClient(new WebViewClientImpl(getBaseContext(),lWebView,1));
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         initWebChromeClient();
         //禁止上下左右滚动(不显示滚动条)
         lWebView.setScrollContainer(false);
@@ -312,7 +354,11 @@ public class LiveActivity extends Activity {
                 LogUtil.i("WebChromeClient", "onProgressChanged, newProgress:" + newProgress + ", view:" + view);
             }
             @Override
+<<<<<<< HEAD
             public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+=======
+            public void onShowCustomView(View view, IX5WebChromeClient.CustomViewCallback callback) {
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
                 LogUtil.i("WebChromeClient","onShowCustomView");
                 binding.fullscreen.addView(view);
                 binding.fullscreen.setVisibility(View.VISIBLE);
@@ -330,7 +376,11 @@ public class LiveActivity extends Activity {
                 binding.fullscreen.setVisibility(View.GONE);
             }
         });
+<<<<<<< HEAD
         // X5WebChromeClientExtension已移除，使用系统WebView无需设置扩展
+=======
+        lWebView.setWebChromeClientExtension(new X5WebChromeClientExtension());
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
     }
 
     private static boolean isMenuShow=false;

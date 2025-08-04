@@ -3,10 +3,13 @@
 .idea
 /.idea
 /local.properties
+<<<<<<< HEAD
 *.apk
 *.zip
 utao-release-202412/
 
+=======
+>>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
