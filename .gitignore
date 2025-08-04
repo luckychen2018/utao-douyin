@@ -3,6 +3,10 @@
 .idea
 /.idea
 /local.properties
+*.apk
+*.zip
+utao-release-202412/
+
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
