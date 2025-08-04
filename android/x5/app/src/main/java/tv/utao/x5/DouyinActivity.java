@@ -110,7 +110,7 @@ public class DouyinActivity extends Activity {
             //无图
             webSettingsExtension.setPicModel(IX5WebSettingsExtension.PicModel_NoPic);
         }
-        lWebView.setWebViewClient(new WebViewClientImpl(getBaseContext(),lWebView,2));
+        lWebView.setWebViewClient(new com.tencent.smtt.sdk.WebViewClient());
         initWebChromeClient();
         //禁止上下左右滚动(不显示滚动条)
         lWebView.setScrollContainer(false);

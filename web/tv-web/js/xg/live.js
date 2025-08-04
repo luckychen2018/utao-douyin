@@ -12,14 +12,8 @@ const config = {
     "width": "100%",
     "height": "100%"
 }
-<<<<<<< HEAD
 config.plugins.push(HlsPlayer);
 //config.plugins.push(FlvPlayer)
 let player = new Player(config);
-=======
-//config.plugins.push(HlsPlayer);
-//config.plugins.push(FlvPlayer)
-let player = new HlsJsPlayer(config);
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 
 

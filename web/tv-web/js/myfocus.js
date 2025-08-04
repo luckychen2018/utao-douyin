@@ -83,7 +83,6 @@ let TvFocus={
         return true;
     },
     up(){
-<<<<<<< HEAD
         if(_isVideo){
             let video= _tvFunc.getVideo();
             let currentVolume=_tvFunc.getVideo().volume;
@@ -109,21 +108,6 @@ let TvFocus={
             window.scrollBy(0, 300);
             _layer.notifyLess("向下滚动");
         }
-=======
-        let video= _tvFunc.getVideo();
-        let currentVolume=_tvFunc.getVideo().volume;
-        if(currentVolume<1){if((currentVolume+0.2)>1){video.volume=1}else{video.volume+=0.2}}
-        let name= Math.floor(video.volume*100);
-        _layer.notifyLess("音量"+name);
-        return true;
-    },
-    down(){
-        let video= _tvFunc.getVideo();
-        let currentVolume=_tvFunc.getVideo().volume;
-        if(currentVolume>0){if((currentVolume-0.2)<0){video.volume=0}else{video.volume-=0.2;}}
-        let name= Math.floor(video.volume*100);
-        _layer.notifyLess("音量"+name);
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         return true;
     },
     keyDownEvent(){

@@ -1,11 +1,7 @@
 res:
   url: http://qn.vonchange.com/utao/res/tv-web.zip
   skipFirst: true
-<<<<<<< HEAD
   version: 44
-=======
-  version: 45
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
   update: true
 apk:
   version: 31

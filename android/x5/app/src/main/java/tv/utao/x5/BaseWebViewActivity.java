@@ -30,20 +30,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.reflect.TypeToken;
-<<<<<<< HEAD
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.CookieManager;
-=======
-import com.tencent.smtt.export.external.extension.interfaces.IX5WebSettingsExtension;
-import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
-import com.tencent.smtt.export.external.interfaces.PermissionRequest;
-import com.tencent.smtt.sdk.WebChromeClient;
-import com.tencent.smtt.sdk.WebSettings;
-import com.tencent.smtt.sdk.WebView;
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 
 import java.io.File;
 import java.util.Arrays;
@@ -72,10 +63,6 @@ import tv.utao.x5.impl.BaseBindingAdapter;
 import tv.utao.x5.impl.BaseViewHolder;
 import tv.utao.x5.impl.IBaseBindingPresenter;
 import tv.utao.x5.impl.WebViewClientImpl;
-<<<<<<< HEAD
-=======
-import tv.utao.x5.impl.X5WebChromeClientExtension;
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 import tv.utao.x5.service.UpdateService;
 import tv.utao.x5.util.AppVersionUtils;
 import tv.utao.x5.util.DataCleanManager;
@@ -95,7 +82,6 @@ import tv.utao.x5.utils.ToastUtils;
 public class BaseWebViewActivity extends Activity {
     protected String TAG = "BaseWebViewActivity";
 
-<<<<<<< HEAD
     public static android.webkit.WebView mWebView;
 
 
@@ -105,29 +91,13 @@ public class BaseWebViewActivity extends Activity {
             //"https://www.iqiyi.com/v_mscze4lfao.html";
             //"https://tv.utao.tv/tv-web/index.html";
             "file:///android_asset/index.html";
-=======
-    public static com.tencent.smtt.sdk.WebView mWebView;
-
-
-
-    private static final String mHomeUrl =
-            "https://tv.utao.tv/tv-web/index.html";
-            //"https://www.iqiyi.com/v_mscze4lfao.html";
-            //"https://tv.utao.tv/tv-web/index.html";
-            //"file:///android_asset/homePage.html";
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 
     protected  ActivityMainBinding binding;
 
     private Context thisContext;
-<<<<<<< HEAD
     // X5内核已移除，始终返回true
     private boolean x5Ok(){
         return true;
-=======
-    private boolean x5Ok(){
-        return "ok".equals(ValueUtil.getString(this,"x5","0"));
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
     }
     private void toStart(){
         Intent intent = new Intent(this, StartActivity.class);
@@ -149,11 +119,7 @@ public class BaseWebViewActivity extends Activity {
         //mWebView.requestFocus();
         //file:///android_asset/tv-web/index.html http://www.utao.tv/tv-web/index.html
         mWebView.loadUrl(mHomeUrl);
-<<<<<<< HEAD
         // X5内核已移除，不再同步X5状态
-=======
-        ConfigApi.syncIsX5Ok(this);
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
           // 或者如果使用旧的 ActionBar
         if (getActionBar() != null) {
             getActionBar().hide();
@@ -165,11 +131,7 @@ public class BaseWebViewActivity extends Activity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setMenuTitleHandler(new MenuTitleHandler());
         ViewGroup container = binding.webviewWrapper;
-<<<<<<< HEAD
         mWebView = new android.webkit.WebView(this);
-=======
-        mWebView = new com.tencent.smtt.sdk.WebView(this);
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         container.addView(mWebView, new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
@@ -203,18 +165,13 @@ public class BaseWebViewActivity extends Activity {
         webSetting.setMediaPlaybackRequiresUserGesture(false);
         String userAgent=webSetting.getUserAgentString();
         //"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-<<<<<<< HEAD
         webSetting.setUserAgentString("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
-=======
-        webSetting.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         //webSetting.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36");
         //normal?
         webSetting.setCacheMode(WebSettings.LOAD_DEFAULT);
         webSetting.setJavaScriptCanOpenWindowsAutomatically(false);
         webSetting.setGeolocationEnabled(false);
         // 检查X5内核状态并提示
-<<<<<<< HEAD
         // X5内核已移除，使用系统WebView的默认设置
         // 启用Cookie
         CookieManager cookieManager = CookieManager.getInstance();
@@ -229,24 +186,6 @@ public class BaseWebViewActivity extends Activity {
         // 禁用强制缩放
         webSetting.setSupportZoom(false);
         webSetting.setBuiltInZoomControls(false);
-=======
-        IX5WebSettingsExtension webSettingsExtension = mWebView.getSettingsExtension();
-        if (null != webSettingsExtension) {
-            LogUtil.i(TAG, "isX5 webSettingsExtension");
-            webSettingsExtension.setAcceptCookie(true);
-            webSettingsExtension.setWebViewInBackground(true);
-            webSettingsExtension.setForcePinchScaleEnabled(false); // 缩放
-        } else {
-            // 检查是否已经提示过
-            boolean hasShowedX5Tip = ValueUtil.getBoolean(getApplicationContext(), "has_showed_x5_tip", false);
-            if (!hasShowedX5Tip) {
-                // 只有第一次才提示
-                ToastUtils.show(this, "未开启x5浏览器内核，可能有兼容性问题，建议设置里开启", Toast.LENGTH_LONG);
-                // 标记为已提示
-                ValueUtil.putBoolean(getApplicationContext(), "has_showed_x5_tip", true);
-            }
-        }
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         initWebViewClient();
         initWebChromeClient();
         //禁止上下左右滚动(不显示滚动条)
@@ -267,11 +206,7 @@ public class BaseWebViewActivity extends Activity {
 
 
     private void initWebViewClient() {
-<<<<<<< HEAD
         mWebView.setWebViewClient(new WebViewClientImpl(getBaseContext()));
-=======
-        mWebView.setWebViewClient(new WebViewClientImpl(getBaseContext(),mWebView,0));
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
     }
 
     private void initWebChromeClient() {
@@ -281,11 +216,7 @@ public class BaseWebViewActivity extends Activity {
                 LogUtil.i("WebChromeClient", "onProgressChanged, newProgress:" + newProgress + ", view:" + view);
             }
             @Override
-<<<<<<< HEAD
             public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
-=======
-            public void onShowCustomView(View view, IX5WebChromeClient.CustomViewCallback callback) {
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
                 LogUtil.i("WebChromeClient","onShowCustomView");
                 binding.fullscreen.addView(view);
                 binding.fullscreen.setVisibility(View.VISIBLE);
@@ -303,11 +234,7 @@ public class BaseWebViewActivity extends Activity {
                 binding.fullscreen.setVisibility(View.GONE);
             }
         });
-<<<<<<< HEAD
         // X5WebChromeClientExtension is removed as we're using system WebView
-=======
-        mWebView.setWebChromeClientExtension(new X5WebChromeClientExtension());
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
     }
 
 
@@ -611,14 +538,6 @@ public class BaseWebViewActivity extends Activity {
         startActivity(intent);
         finish();
     }
-<<<<<<< HEAD
-=======
-    private void toDouyin(){
-        Intent intent = new Intent(this, DouyinActivity.class);
-        startActivity(intent);
-        finish();
-    }
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
     protected void killAppProcess()
     {
         //注意：不能先杀掉主进程，否则逻辑代码无法继续执行，需先杀掉相关进程最后杀掉主进程
@@ -656,16 +575,7 @@ public class BaseWebViewActivity extends Activity {
         public void message(String service,String data){
             LogUtil.i(TAG,"service "+service+" data "+data);
             if("activity".equals(service)){
-<<<<<<< HEAD
                 toLive();
-=======
-                if(data.equals("live")){
-                    toLive();
-                }
-                if(data.equals("douyin")){
-                    toDouyin();
-                }
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
                 return;
             }
             if("history.save".equals(service)){

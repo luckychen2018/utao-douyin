@@ -1,16 +1,8 @@
 const  _ctrlx={
     ok(){
        console.log("playplayplay");
-<<<<<<< HEAD
        $$(".play-btn").click();
        $$(".iqp-btn-pause").click();
-=======
-       $$("[class^=player-buttons_resumeBtn]").click();
-        $$("[class^=player-buttons_pauseBtn]").click();
-       $$(".iqp-btn-pause").click();
-       //player-buttons_resumeBtn__diOgO
-        //player-buttons_pauseBtn__dnTvv
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         _layer.notifyLess("OK键暂停或播放")
        // _apiX.msgStr("key","SPACE");
        //全屏
@@ -23,11 +15,7 @@ const  _ctrlx={
     fullscreen() {
         // 全屏
         //弹幕
-<<<<<<< HEAD
         _tvFunc.check(function (){
-=======
-   /*     _tvFunc.check(function (){
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
             if($$("#barrage_off").length > 0&&$$("#barrage_off").hasClass("dn")){
                 console.log("弹幕关");
                 $$("#barrage_switch").click();
@@ -35,21 +23,12 @@ const  _ctrlx={
             return  $$("#barrage_off").length > 0&&!$$("#barrage_off").hasClass("dn");
         },function (){
 
-<<<<<<< HEAD
         },2000);
     /*    setInterval(function (){
             if($$("#barrage_off").hasClass("dn")){
                 $$("#barrage_switch").click();
             }
         },2000);*/
-=======
-        },2000);*/
-        setInterval(function (){
-            if($$("#pcaBarrageContainer").length > 0){
-                $$("#pcaBarrageContainer").remove();
-            }
-        },2000);
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         _tvFunc.fullscreenW("#video");
    /*     _tvFunc.check(function (){return $$("#video").length>0},function (){
             $$("#video").addClass("utv-video-full");
@@ -120,11 +99,7 @@ const _data={
     initData(vue,hzCallback){
        this.vue=vue;
         //#video  .iqp-txt-stream
-<<<<<<< HEAD
        _tvFunc.check(function(){return $$(".iqp-txt-stream").length>0},function(){
-=======
-       _tvFunc.check(function(){return $$("#right").length>0},function(){
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         //网页全屏
         _data.fullscreen();
         _data.hzList(hzCallback);
@@ -141,13 +116,8 @@ const _data={
          let isVip= $$("#btn_user").parent().attr("class").includes("topbar_vipBox");
          console.log("isVip "+isVip)
          this.vue.isVip=isVip;
-<<<<<<< HEAD
         //关闭弹幕
        // $$(".iqp-barrage").remove();
-=======
-        //关闭弹幕 iqp-barrage-stage
-        //$$("#pcaBarrageContainer").remove();
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         // 悬浮图片
         //data-player-hook="plgcontainer"
        //$$("[data-player-hook='plgcontainer']").remove();//1

@@ -6,7 +6,6 @@ let _browser={
       return browser.runtime.getURL(src);
    }
 };
-<<<<<<< HEAD
 /*浏览器扩展相关*/
 function openX5Browser(){
     return _apiX.msgToObj("openX5Browser");
@@ -16,8 +15,6 @@ function openBrowser(url){
         _apiX.msg("openBrowser",url);
     }
 }
-=======
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 const _tvLoadRes={
     js(scrJs){
         let script = document.createElement('script');
@@ -178,7 +175,6 @@ if(typeof cloneInto!=="undefined"){
    // window.wrappedJSObject._tvEnv = cloneInto(_tvEnv, window);
 }
 
-<<<<<<< HEAD
 // 模拟browser对象以避免错误
 var browser = browser || {};
 browser.runtime = browser.runtime || {};
@@ -189,8 +185,6 @@ browser.runtime.connect = function() {
   };
 };
 
-=======
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 var myPort = browser.runtime.connect({ name: "port-from-cs" });
 myPort.postMessage({service:"test",data: "hello from content script" });
 myPort.onMessage.addListener(function (m) {

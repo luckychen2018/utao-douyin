@@ -159,10 +159,6 @@ var _tvFunc={
             return this.video;
         }
         let videos = document.getElementsByTagName("video");
-<<<<<<< HEAD
-=======
-            //document.getElementsByTagName("video");
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         if(videos.length > 0){
             this.video=videos[0];
         }

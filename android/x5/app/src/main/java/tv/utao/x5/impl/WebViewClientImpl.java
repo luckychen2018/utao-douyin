@@ -3,19 +3,11 @@ package tv.utao.x5.impl;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-<<<<<<< HEAD
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-=======
-import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
-import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
-import com.tencent.smtt.sdk.ValueCallback;
-import com.tencent.smtt.sdk.WebView;
-import com.tencent.smtt.sdk.WebViewClient;
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -32,56 +24,30 @@ import tv.utao.x5.util.LogUtil;
 import tv.utao.x5.util.TplUtil;
 import tv.utao.x5.util.Util;
 
-<<<<<<< HEAD
 public class WebViewClientImpl extends android.webkit.WebViewClient {
     private  static  String TAG="WebViewClient";
     private Context context;
-=======
-public class WebViewClientImpl extends WebViewClient {
-    private  static  String TAG="WebViewClient";
-    private Context context;
-    private WebView mWebView;
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 
     private static  String lastUrl=null;
     private static  String rootUrl=null;
     private static  String currentUrl=null;
-<<<<<<< HEAD
     private int type=0; // 默认类型
     public WebViewClientImpl(Context context){
         this.context=context;
     }
     // 原生WebView没有此方法，注释掉
     /*@Override
-=======
-    private int type;
-    public WebViewClientImpl(Context context,WebView mWebView,int type){
-        this.context=context;
-        this.mWebView=mWebView;
-        this.type=type;
-    }
-    @Override
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
     public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
         LogUtil.i(TAG,"onRenderProcessGone");
         view.clearCache(false);
         view.clearHistory();
         return true;
-<<<<<<< HEAD
     }*/
 
     @Override
     public void onReceivedSslError(WebView webView,
                                    android.webkit.SslErrorHandler handler,
                                    android.net.http.SslError error) {
-=======
-    }
-
-    @Override
-    public void onReceivedSslError(com.tencent.smtt.sdk.WebView webView,
-                                   com.tencent.smtt.export.external.interfaces.SslErrorHandler handler,
-                                   com.tencent.smtt.export.external.interfaces.SslError error) {
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         LogUtil.i(TAG,"onReceivedSslError");
         handler.proceed(); // 忽略 SSL 错误
     }
@@ -125,11 +91,7 @@ public class WebViewClientImpl extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         LogUtil.i(TAG, "onPageFinished, view:" + view + ", url:" + url);
-<<<<<<< HEAD
         if (view.getProgress() == 100) {
-=======
-        if (mWebView.getProgress() == 100) {
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
             LogUtil.i(TAG, "onPageFinished XX, url:" + url);
             String fileContent =getFileContent(url);
             if(null==fileContent){
@@ -187,11 +149,7 @@ public class WebViewClientImpl extends WebViewClient {
         //LogUtil.i(TAG,"XX"+orgUrl);
         if(type==1){
             if(orgUrl.startsWith("https://tlive.fengshows.com/live/")||orgUrl.startsWith("https://hkmolive.fengshows.com/live/")){
-<<<<<<< HEAD
                 String realUrl= "https://qctv.fengshows.cn"+orgUrl.substring(orgUrl.indexOf("/live"),orgUrl.length());
-=======
-                String realUrl= "https://qctv.fengshows.cn"+orgUrl.substring(orgUrl.indexOf("/live"));
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
                 LogUtil.i(TAG,realUrl);
                 Map<String,String> headerMap = new HashMap<>();
                 InputStream inputStream = HttpUtil.get(realUrl,new HashMap<>());
@@ -205,11 +163,7 @@ public class WebViewClientImpl extends WebViewClient {
                 return resp;
             }
         }
-<<<<<<< HEAD
         if(null!=accept&&accept.startsWith("image/")&&!imageLoad(url, webView)){
-=======
-        if(null!=accept&&accept.startsWith("image/")&&!imageLoad(url)){
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
             return new WebResourceResponse(null,
                     null, null);
         }
@@ -220,30 +174,6 @@ public class WebViewClientImpl extends WebViewClient {
                     Util.evalOnUi(webView,Util.sessionStorageWithTime("iqiyiXj",url));
                 }
             }
-<<<<<<< HEAD
-=======
-           // String json = FileUtil.readExt( MyApplication.getAppContext(),"tv-web/match.json");
-         /*   if(!json.isEmpty()){
-                ExtConfig extConfig =   JsonUtil.fromJson(json, ExtConfig.class);
-                List<StartWith> startWiths= extConfig.getStartWith();
-                for (StartWith startWith : startWiths) {
-                    if(url.startsWith(startWith.getKey())){
-                        Map<String,String> headerMap = new HashMap<>();
-                        headerMap.put("Referer",startWith.getReferer());
-                        //headerMap.put("Access-Control-Allow-Origin","*");
-                        InputStream inputStream = HttpUtil.get(orgUrl,headerMap);
-                        if(null==inputStream){
-                            return super.shouldInterceptRequest(webView, webResourceRequest);
-                        }
-                        WebResourceResponse resp=new WebResourceResponse(startWith.getType(),
-                                ConstantMy.UTF8, inputStream);
-                        headerMap.put("access-control-allow-origin","*");
-                        resp.setResponseHeaders(headerMap);
-                        return resp;
-                    }
-                }
-            }*/
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
             return super.shouldInterceptRequest(webView, webResourceRequest);
         }
         if(url.endsWith("tvImg=1")){
@@ -297,10 +227,6 @@ public class WebViewClientImpl extends WebViewClient {
                         ConstantMy.UTF8, FileUtil.readExtIn(MyApplication.getAppContext(),fileName));
             }
         }
-<<<<<<< HEAD
-=======
-        //webResourceRequest.getRequestHeaders()
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
 
         return super.shouldInterceptRequest(webView, webResourceRequest);
 
@@ -330,11 +256,7 @@ public class WebViewClientImpl extends WebViewClient {
        }
       return  false;
    }
-<<<<<<< HEAD
     private boolean  imageLoad(String url, WebView webView){
-=======
-    private boolean  imageLoad(String url){
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
         if(url.contains("tvImg")){
             return true;
         }
@@ -347,33 +269,21 @@ public class WebViewClientImpl extends WebViewClient {
         if(url.contains("open.weixin.qq.com/connect/qrcode")){
             String code=Util.loginQr(url,"微信");
             LogUtil.i(TAG, "imageLoad: "+code);
-<<<<<<< HEAD
             Util.evalOnUi(webView, code);
-=======
-            Util.evalOnUi(mWebView, code);
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
             return true;
         }
         //ssl.ptlogin2.qq.com/ptqrshow
         if(url.contains("ptlogin2.qq.com/ssl/ptqrshow")){
             String code=Util.loginQr(url,"手机端qq");
             LogUtil.i(TAG, "imageLoad: "+code);
-<<<<<<< HEAD
             Util.evalOnUi(webView, code);
-=======
-            Util.evalOnUi(mWebView, code);
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
             return true;
         }
         if(url.startsWith("https://img.alicdn.com/imgextra/")&&url.endsWith("xcode.png")){
             String code=Util.loginQr(url,"youkuQr");
                     //Util.sessionStorageWithTime("youkuQr",url);
             LogUtil.i(TAG, "imageLoad: "+code);
-<<<<<<< HEAD
             Util.evalOnUi(webView, code);
-=======
-            Util.evalOnUi(mWebView, code);
->>>>>>> 9df0996e87f5dfe893b4155841963ce5fe3eb02c
             return true;
         }
         return false;
