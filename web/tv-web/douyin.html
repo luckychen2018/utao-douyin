@@ -7,6 +7,7 @@
     <title>抖音</title>
     <link href="css/rset.css?v=x" rel="stylesheet">
     <link href="css/my.css?v=x" rel="stylesheet">
+    <script src="douyin-userscript.js"></script>
 </head>
 <body>
     <div id="tv-body" class="tv-body">
@@ -39,5 +40,81 @@
             </div>
         </div>
     </div>
+    <div id="virtual-mouse" class="virtual-mouse"></div>
+    <style>
+        .virtual-mouse {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ff0000;
+            border-radius: 50%;
+            pointer-events: none;
+            display: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+        .virtual-mouse.active {
+            display: block;
+        }
+    </style>
+    <script>
+        const virtualMouse = document.getElementById('virtual-mouse');
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let isActive = false;
+
+        function moveMouse(dx, dy) {
+            mouseX = Math.max(0, Math.min(window.innerWidth, mouseX + dx));
+            mouseY = Math.max(0, Math.min(window.innerHeight, mouseY + dy));
+            virtualMouse.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        }
+
+        function activateVirtualMouse() {
+            isActive = true;
+            virtualMouse.classList.add('active');
+            moveMouse(0, 0);
+            document.addEventListener('keydown', handleKeydown);
+        }
+
+        function deactivateVirtualMouse() {
+            isActive = false;
+            virtualMouse.classList.remove('active');
+            document.removeEventListener('keydown', handleKeydown);
+        }
+
+        function handleKeydown(e) {
+            if (!isActive) return;
+
+            switch(e.key) {
+                case 'ArrowUp':
+                    moveMouse(0, -10);
+                    e.preventDefault();
+                    break;
+                case 'ArrowDown':
+                    moveMouse(0, 10);
+                    e.preventDefault();
+                    break;
+                case 'ArrowLeft':
+                    moveMouse(-10, 0);
+                    e.preventDefault();
+                    break;
+                case 'ArrowRight':
+                    moveMouse(10, 0);
+                    e.preventDefault();
+                    break;
+                case 'Enter':
+                    const element = document.elementFromPoint(mouseX, mouseY);
+                    if (element) element.click();
+                    e.preventDefault();
+                    break;
+            }
+        }
+
+        window.addEventListener('load', activateVirtualMouse);
+        window.addEventListener('beforeunload', deactivateVirtualMouse);
+        document.querySelectorAll('.tv-item a, .tv-item').forEach(el => {
+            el.addEventListener('click', deactivateVirtualMouse);
+        });
+    </script>
 </body>
 </html>

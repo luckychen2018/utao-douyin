@@ -48,7 +48,11 @@ public class DouyinActivity extends Activity {
         lWebView.requestFocus();
         binding.webviewWrapper.requestFocus();
         //数据库获取最新数据
-        lWebView.loadUrl("https://www.douyin.com/?recommend=1");
+        // 加载抖音推荐页面
+        // 严格加载指定的抖音官方链接
+        String targetUrl = "https://www.douyin.com/?recommend=1";
+        LogUtil.i("DouyinActivity", "Loading exact URL: " + targetUrl);
+        lWebView.loadUrl(targetUrl);
         ToastUtils.show(this,"已支持遥控器上下可快速切台",Toast.LENGTH_SHORT);
         // 或者如果使用旧的 ActionBar
         if (getActionBar() != null) {

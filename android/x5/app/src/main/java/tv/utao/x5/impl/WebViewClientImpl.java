@@ -15,6 +15,9 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.res.AssetManager;
+import java.io.IOException;
+
 import tv.utao.x5.MyApplication;
 import tv.utao.x5.util.AppVersionUtils;
 import tv.utao.x5.util.ConstantMy;
@@ -93,17 +96,43 @@ public class WebViewClientImpl extends android.webkit.WebViewClient {
         LogUtil.i(TAG, "onPageFinished, view:" + view + ", url:" + url);
         if (view.getProgress() == 100) {
             LogUtil.i(TAG, "onPageFinished XX, url:" + url);
-            String fileContent =getFileContent(url);
-            if(null==fileContent){
-                return;
-            }
-            LogUtil.i(TAG, "fileContent end:");
-            view.evaluateJavascript(fileContent, new ValueCallback<String>() {
-                @Override
-                public void onReceiveValue(String s) {
-                    LogUtil.i(TAG, "onReceiveValue:" + s);
+            String fileContent = getFileContent(url);
+            
+            // 添加抖音特定脚本注入
+            if (url.contains("douyin.com")) {
+                try {
+                    // 从assets读取自定义脚本
+                    AssetManager assetManager = context.getAssets();
+                    InputStream is = assetManager.open("douyin-userscript.js");
+                    int size = is.available();
+                    byte[] buffer = new byte[size];
+                    is.read(buffer);
+                    is.close();
+                    String jsContent = new String(buffer, "UTF-8");
+                    
+                    // 合并原有内容和新脚本，包裹在DOMContentLoaded事件中
+                    String wrappedJs = "document.addEventListener('DOMContentLoaded', function() {" + jsContent + "});";
+                    
+                    if (fileContent == null) {
+                        fileContent = wrappedJs;
+                    } else {
+                        fileContent += "\n" + wrappedJs;
+                    }
+                    LogUtil.i(TAG, "注入抖音自定义脚本成功");
+                } catch (IOException e) {
+                    LogUtil.e(TAG, "读取抖音脚本失败: " + e.getMessage());
                 }
-            });
+            }
+            
+            if (null != fileContent) {
+                LogUtil.i(TAG, "fileContent end:");
+                view.evaluateJavascript(fileContent, new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String s) {
+                        LogUtil.i(TAG, "onReceiveValue:" + s);
+                    }
+                });
+            }
         }
     }
 
